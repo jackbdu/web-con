@@ -42,6 +42,25 @@
       outline: none;
     }
 
+    .display {
+      position: fixed;
+      top: 1vh;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 36vh;
+      height: 5vh;
+      line-height: 2vh;
+      border-radius: 1vh;
+      border: 2px solid #111;
+      background-color: #eee;
+      color: #222;
+      padding: 2vh;
+      font-size: 2vh;
+      font-family: monospace;
+      overflow: hidden;
+      display: none;
+    }
+
     .top {
       width: 20vh;
       height: 9vh;
@@ -219,41 +238,126 @@
   </style>
 </head>
 <body onload="init();">
-  <button onclick="clickButton(this)" id="zl" class="top left">ZL</button>
-  <button onclick="clickButton(this)" id="l" class="top left">L</button>
-  <button onclick="clickButton(this)" id="zr" class="top right">ZR</button>
-  <button onclick="clickButton(this)" id="r" class="top right">R</button>
+  <div id="display" class="display"></div>
+  <button id="zl" class="top left">ZL</button>
+  <button id="l" class="top left">L</button>
+  <button id="zr" class="top right">ZR</button>
+  <button id="r" class="top right">R</button>
   <div class="stick left">
-    <button onclick="clickButton(this)" id="l_stick" class="head"></button>
+    <button id="l_stick" class="head"></button>
   </div>
   <div class="stick right">
-    <button onclick="clickButton(this)" id="r_stick" class="head"></button>
+    <button id="r_stick" class="head"></button>
   </div>
-  <button onclick="clickButton(this)" id="minus" class="option minus"></button>
-  <button onclick="clickButton(this)" id="plus" class="option plus"></button>
-  <button onclick="clickButton(this)" id="capture" class="option capture"></button>
-  <button onclick="clickButton(this)" id="home" class="option home"></button>
+  <button id="minus" class="option minus"></button>
+  <button id="plus" class="option plus"></button>
+  <button id="capture" class="option capture"></button>
+  <button id="home" class="option home"></button>
   <div class="letters">
-    <button onclick="clickButton(this)" id="x" class="letter n">X</button>
-    <button onclick="clickButton(this)" id="a" class="letter e">A</button>
-    <button onclick="clickButton(this)" id="b" class="letter s">B</button>
-    <button onclick="clickButton(this)" id="y" class="letter w">Y</button>
+    <button id="x" class="letter n">X</button>
+    <button id="a" class="letter e">A</button>
+    <button id="b" class="letter s">B</button>
+    <button id="y" class="letter w">Y</button>
   </div>
   <div class="directions">
-    <button onclick="clickButton(this)" id="up" class="direction n"></button>
-    <button onclick="clickButton(this)" id="right" class="direction e"></button>
-    <button onclick="clickButton(this)" id="down" class="direction s"></button>
-    <button onclick="clickButton(this)" id="left" class="direction w"></button>
+    <button id="up" class="direction n"></button>
+    <button id="right" class="direction e"></button>
+    <button id="down" class="direction s"></button>
+    <button id="left" class="direction w"></button>
   </div>
 </body>
 <script type="text/javascript">
+
+  var host = findGetParameter("host");
+  var debug = findGetParameter("debug");
+
+  document.getElementById("zl").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("zr").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("l").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("r").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("l_stick").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("r_stick").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("minus").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("plus").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("capture").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("home").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("x").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("a").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("b").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("y").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("up").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("right").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("down").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+  document.getElementById("left").addEventListener('click', function(event) {
+    clickButton(event);
+  });
+
+  function display(str) {
+    if (debug === 'true') {
+      var display = document.getElementById("display");
+      display.style.display = 'block';
+      var escaped = str.replace(/&/, "&amp;").replace(/</, "&lt;").
+          replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
+      display.innerHTML = "$ "+escaped;
+      console.log("DEBUG: "+escaped);
+    }
+  }
+
+  // get parameter by name
+  // https://stackoverflow.com/questions/5448545/how-to-retrieve-get-parameters-from-javascript
+  function findGetParameter(parameterName) {
+      var result = null,
+          tmp = [];
+      var items = location.search.substr(1).split("&");
+      for (var index = 0; index < items.length; index++) {
+          tmp = items[index].split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+      }
+      return result;
+  }
 
   var ws;
   
   function init() {
 
+    display("Welcome to Web-Con!");
+
     // Connect to Web Socket
-    ws = new WebSocket(location.search.substring(1));
+    ws = new WebSocket(host);
 
     // Set event handlers.
     ws.onopen = function() {
@@ -276,10 +380,10 @@
 
   }
   
-  function clickButton(elem) {
-    var button = elem.id;
+  function clickButton(event) {
+    var button = event.target.id || event.srcElement.id;
+    display("Button <" + button + "> pushed");
     ws.send('c,'+button);
-    console.log("Push " + button);
   }
 
   dragElement(document.getElementById("l_stick"));

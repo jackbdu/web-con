@@ -1,9 +1,6 @@
 var host = findGetParameter("host");
 var debug = findGetParameter("debug");
 
-document.getElementById("zl").addEventListener('touchStart', function(event) {
-  holdButton(event);
-});
 document.getElementById("zl").addEventListener('click', function(event) {
   clickButton(event);
 });
@@ -121,6 +118,7 @@ function clickButton(event) {
 
 dragElement(document.getElementById("l_stick"));
 dragElement(document.getElementById("r_stick"));
+
 
 function dragElement(elem) {
   var initX = 0, initY = 0, posX = 0, posY = 0;

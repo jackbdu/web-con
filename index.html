@@ -315,8 +315,8 @@
       }
       elem.style.top = posY + "px";
       elem.style.left = posX + "px";
-      var hVal = Math.floor((posX+constraint)/constraint/2*4096).toString();
-      var vVal = Math.floor((constraint-posY)/constraint/2*4096).toString();
+      var hVal = Math.round((posX+constraint)/constraint/2*4095).toString();
+      var vVal = Math.round((constraint-posY)/constraint/2*4095).toString();
       ws.send('s,'+elem.id.charAt(0)+',h,'+hVal)
       ws.send('s,'+elem.id.charAt(0)+',v,'+vVal)
       console.log('Drag moved: s,'+elem.id.charAt(0)+',h,'+hVal);

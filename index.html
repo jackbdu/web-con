@@ -1,0 +1,229 @@
+<html>
+<head>
+  <title>Web-Con Controller</title>
+
+  <script type="text/javascript">
+
+    var ws;
+    
+    function init() {
+
+      // Connect to Web Socket
+      ws = new WebSocket(location.search.substring(1));
+
+      // Set event handlers.
+      ws.onopen = function() {
+        console.log("onopen");
+      };
+      
+      ws.onmessage = function(e) {
+        // e.data contains received string.
+        console.log("onmessage: " + e.data);
+      };
+      
+      ws.onclose = function() {
+        console.log("onclose");
+      };
+
+      ws.onerror = function(e) {
+        console.log("onerror");
+        console.log(e)
+      };
+
+    }
+    
+    function clickButton(elem) {
+      var cmd = elem.id;
+      ws.send(cmd);
+      console.log("send: " + cmd);
+    }
+
+  </script>
+  <style>
+    html, body, button, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    body {
+      font-family: Helvetica, sans-serif;
+    }
+
+    button {
+      position: fixed;
+      font-size: 5vh;
+      background-color: #111;
+      color: #eee;
+    }
+
+    .top {
+      width: 20vh;
+      height: 9vh;
+      border-radius: 2vh;
+    }
+
+    .top.left {
+      left: 1vw;
+    }
+
+    .top.right {
+      right: 1vw;
+    }
+
+    .top#zl, .top#zr {
+      top: 1vh;
+    }
+
+    .top#l, .top#r {
+      top: 11vh;
+    }
+
+    .stick {
+      width: 20vh;
+      height: 20vh;
+      border-radius: 10vh;
+    }
+
+    .stick.left {
+      top: 39vh;
+      left: 21vw;
+      transform: translate(-50%, -50%);
+    }
+
+    .stick.right {
+      bottom: 25vh;
+      right: 35vw;
+      transform: translate(50%, 50%);
+    }
+
+    .option {
+      width: 10vh;
+      height: 10vh;
+      border-radius: 5vh;
+    }
+
+    .option.plus, .option.minus {
+      top: 25vh;
+    }
+
+    .option.minus {
+      left: 40vw;
+      transform: translate(-50%, -50%);
+    }
+
+    .option.plus {
+      right: 40vw;
+      transform: translate(50%, -50%);
+    }
+
+    .option.home, .option.capture {
+      top: 40vh;
+    }
+
+    .option.capture {
+      left: 45vw;
+      transform: translate(-50%, -50%);
+      width: 9vh;
+      height: 9vh;
+      border-radius: 2vh;
+    }
+
+    .option.home {
+      right: 45vw;
+      transform: translate(50%, -50%);
+    }
+
+    .directions, .letters {
+      width: 0;
+      height: 0;
+      position: fixed;
+    }
+
+    .directions {
+      bottom: 25vh;
+      left: 34vw;
+    }
+
+    .letters {
+      top: 40vh;
+      right: 21vw;
+    }
+    
+    .directions button, .letters button {
+      position: absolute;
+    }
+
+    .directions button {
+      width: 15vh;
+      height: 15vh;
+      border-radius: 4vh;
+    }
+
+    .letters button {
+      width: 16vh;
+      height: 16vh;
+      border-radius: 8vh;
+    }
+
+    .n {
+      bottom: 15vh;
+      transform: translate(-50%, 50%);
+    }
+
+    .e {
+      left: 15vh;
+      transform: translate(-50%, -50%);
+    }
+
+    .s {
+      top: 15vh;
+      transform: translate(-50%, -50%);
+    }
+
+    .w {
+      right: 15vh;
+      transform: translate(50%, -50%);
+    }
+
+  </style>
+</head>
+<body onload="init();">
+  <button onclick="clickButton(this)" id="zl" class="top left">ZL</button>
+  <button onclick="clickButton(this)" id="l" class="top left">L</button>
+  <button onclick="clickButton(this)" id="zr" class="top right">ZR</button>
+  <button onclick="clickButton(this)" id="r" class="top right">R</button>
+  <button onclick="clickButton(this)" id="l_stick" class="stick left"></button>
+  <button onclick="clickButton(this)" id="r_stick" class="stick right"></button>
+  <button onclick="clickButton(this)" id="minus" class="option minus">-</button>
+  <button onclick="clickButton(this)" id="plus" class="option plus">+</button>
+  <button onclick="clickButton(this)" id="capture" class="option capture">C</button>
+  <button onclick="clickButton(this)" id="home" class="option home">H</button>
+  <div class="letters">
+    <button onclick="clickButton(this)" id="x" class="letter n">X</button>
+    <button onclick="clickButton(this)" id="a" class="letter e">A</button>
+    <button onclick="clickButton(this)" id="b" class="letter s">B</button>
+    <button onclick="clickButton(this)" id="y" class="letter w">Y</button>
+  </div>
+  <div class="directions">
+    <button onclick="clickButton(this)" id="up" class="direction n">U</button>
+    <button onclick="clickButton(this)" id="right" class="direction e">R</button>
+    <button onclick="clickButton(this)" id="down" class="direction s">L</button>
+    <button onclick="clickButton(this)" id="left" class="direction w">D</button>
+  </div>
+</body>
+</html>

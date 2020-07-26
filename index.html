@@ -274,16 +274,17 @@
   }
   
   function clickButton(elem) {
-    var cmd = elem.id;
-    ws.send(cmd);
-    console.log("send: " + cmd);
+    var button = elem.id;
+    ws.send('c,'+button);
+    console.log("Push " + button);
   }
 
   dragElement(document.getElementById("l_stick"));
   dragElement(document.getElementById("r_stick"));
 
   function dragElement(elem) {
-    var initX = 0, initY = 0;
+    var initX = 0, initY = 0, posX = 0, posY = 0;
+    var constraint = elem.clientWidth/2;
 
     elem.onmousedown = dragMouseDown;
 
@@ -305,19 +306,23 @@
       posX = e.clientX - initX;
       posY = e.clientY - initY;
       tmag = Math.sqrt(posX**2+posY**2);
-      if (tmag > elem.clientWidth/2) {
-        elem.style.top = posY*elem.clientWidth/2/tmag + "px";
-        elem.style.left = posX*elem.clientWidth/2/tmag + "px";
-      } else {
-        elem.style.top = posY + "px";
-        elem.style.left = posX + "px";
+      if (tmag > constraint) {
+        posY = posY*constraint/tmag;
+        posX = posX*constraint/tmag;
       }
+      elem.style.top = posY + "px";
+      elem.style.left = posX + "px";
+      var hVal = Math.floor((posX+constraint)/constraint/2*4096).toString();
+      var vVal = Math.floor((constraint-posY)/constraint/2*4096).toString();
+      ws.send('s,'+elem.id.charAt(0)+',h,'+hVal)
+      ws.send('s,'+elem.id.charAt(0)+',v,'+vVal)
     }
 
     function closeDragElement() {
       // stop moving when mouse button is released:
       document.onmouseup = null;
       document.onmousemove = null;
+      ws.send('s,'+elem.id.charAt(0)+',center,2048')
       elem.style.top = "0px";
       elem.style.left = "0px";
     }

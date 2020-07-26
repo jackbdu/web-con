@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Web-Con Pro</title>
+  <title>Web-Con Controller</title>
   <meta name = "viewport" content = "width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no">
   <meta name="apple-mobile-web-app-title" content="Web-Con">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -8,37 +8,35 @@
   <link rel="apple-touch-icon" href="assets/icon.png">
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body onload="init();">
+<body onload="init();" class="pro">
   <div id="display" class="display"></div>
-  <div class="pro">
-    <button onclick="clickButton(this)" id="sl" class="shared sl">SL</button>
-    <button onclick="clickButton(this)" id="sr" class="shared sr">SR</button>
-    <button onclick="clickButton(this)" id="zl" class="top left zl">ZL</button>
-    <button onclick="clickButton(this)" id="l" class="top left l">L</button>
-    <button onclick="clickButton(this)" id="zr" class="top right zr">ZR</button>
-    <button onclick="clickButton(this)" id="r" class="top right r">R</button>
-    <div class="stick left">
-      <button onclick="clickButton(this)" id="l_stick" class="head left"></button>
-    </div>
-    <div class="stick right">
-      <button onclick="clickButton(this)" id="r_stick" class="head right"></button>
-    </div>
-    <button onclick="clickButton(this)" id="minus" class="option minus left"></button>
-    <button onclick="clickButton(this)" id="plus" class="option plus right"></button>
-    <button onclick="clickButton(this)" id="capture" class="option capture left"></button>
-    <button onclick="clickButton(this)" id="home" class="option home right"></button>
-    <div class="letters">
-      <button onclick="clickButton(this)" id="x" class="letter n right">X</button>
-      <button onclick="clickButton(this)" id="a" class="letter e right">A</button>
-      <button onclick="clickButton(this)" id="b" class="letter s right">B</button>
-      <button onclick="clickButton(this)" id="y" class="letter w right">Y</button>
-    </div>
-    <div class="directions">
-      <button onclick="clickButton(this)" id="up" class="direction n left"></button>
-      <button onclick="clickButton(this)" id="right" class="direction e left"></button>
-      <button onclick="clickButton(this)" id="down" class="direction s left"></button>
-      <button onclick="clickButton(this)" id="left" class="direction w left"></button>
-    </div> 
+  <button onclick="clickButton(this)" id="sl" class="shared sl">SL</button>
+  <button onclick="clickButton(this)" id="sr" class="shared sr">SR</button>
+  <button onclick="clickButton(this)" id="zl" class="top left zl">ZL</button>
+  <button onclick="clickButton(this)" id="l" class="top left l">L</button>
+  <button onclick="clickButton(this)" id="zr" class="top right zr">ZR</button>
+  <button onclick="clickButton(this)" id="r" class="top right r">R</button>
+  <div class="stick left">
+    <button onclick="clickButton(this)" id="l_stick" class="head left"></button>
+  </div>
+  <div class="stick right">
+    <button onclick="clickButton(this)" id="r_stick" class="head right"></button>
+  </div>
+  <button onclick="clickButton(this)" id="minus" class="option minus left"></button>
+  <button onclick="clickButton(this)" id="plus" class="option plus right"></button>
+  <button onclick="clickButton(this)" id="capture" class="option capture left"></button>
+  <button onclick="clickButton(this)" id="home" class="option home right"></button>
+  <div class="letters">
+    <button onclick="clickButton(this)" id="x" class="letter n right">X</button>
+    <button onclick="clickButton(this)" id="a" class="letter e right">A</button>
+    <button onclick="clickButton(this)" id="b" class="letter s right">B</button>
+    <button onclick="clickButton(this)" id="y" class="letter w right">Y</button>
+  </div>
+  <div class="directions">
+    <button onclick="clickButton(this)" id="up" class="direction n left"></button>
+    <button onclick="clickButton(this)" id="right" class="direction e left"></button>
+    <button onclick="clickButton(this)" id="down" class="direction s left"></button>
+    <button onclick="clickButton(this)" id="left" class="direction w left"></button>
   </div>
   <script src="js/script.js"></script>
 </body>

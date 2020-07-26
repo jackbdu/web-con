@@ -128,8 +128,18 @@ function dragElement(elem) {
     }
     elem.style.top = posY + "px";
     elem.style.left = posX + "px";
-    var hVal = Math.round(4095*(Math.sin(posX/constraint/2*Math.PI)+1)/2).toString();
-    var vVal = Math.round(4095*(Math.sin(-posY/constraint/2*Math.PI)+1)/2).toString();
+    var hVal = 0;
+    var vVal = 0;
+    if (type === "left") {
+      vVal = Math.round(4095*(Math.sin(-posX/constraint/2*Math.PI)+1)/2).toString();
+      hVal = Math.round(4095*(Math.sin(-posY/constraint/2*Math.PI)+1)/2).toString();
+    } else if (type === "right") {
+      vVal = Math.round(4095*(Math.sin(posX/constraint/2*Math.PI)+1)/2).toString();
+      hVal = Math.round(4095*(Math.sin(posY/constraint/2*Math.PI)+1)/2).toString();
+    } else {
+      hVal = Math.round(4095*(Math.sin(posX/constraint/2*Math.PI)+1)/2).toString();
+      vVal = Math.round(4095*(Math.sin(-posY/constraint/2*Math.PI)+1)/2).toString();
+    }
     ws.send('s,'+elem.id.charAt(0)+',h,'+hVal)
     ws.send('s,'+elem.id.charAt(0)+',v,'+vVal)
     console.log('Drag moved: s,'+elem.id.charAt(0)+',h,'+hVal);

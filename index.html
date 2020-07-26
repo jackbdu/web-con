@@ -38,6 +38,8 @@
       position: fixed;
       font-size: 6vh;
       background-color: #111;
+      cursor: pointer;
+      outline: none;
     }
 
     .top {
@@ -82,6 +84,7 @@
       position: absolute;
       top: 0;
       bottom: 0;
+      cursor: move;
     }
 
     .stick.left .head {
@@ -295,8 +298,18 @@
       // get the touch position at startup:
       initX = e.pageX;
       initY = e.pageY;
-      document.ontouchend = dragEnd;
-      document.ontouchmove = dragMove;
+      if(e.targetTouches) {
+        for (var i = 0; i < e.targetTouches.length; i++) {
+          if (e.targetTouches[i].target == elem) {
+            initX = e.targetTouches[i].clientX;
+            initY = e.targetTouches[i].clientY;
+            break;
+          }
+        }
+      }
+      elem.ontouchend = dragEnd;
+      elem.ontouchcancel = dragEnd;
+      elem.ontouchmove = dragMove;
       document.onmouseup = dragEnd;
       document.onmousemove = dragMove;
       console.log('Drag started at '+initX+', '+initY);
@@ -308,6 +321,15 @@
       // calculate the new touch position:
       posX = e.pageX - initX;
       posY = e.pageY - initY;
+      if(e.targetTouches) {
+        for (var i = 0; i < e.targetTouches.length; i++) {
+          if (e.targetTouches[i].target == elem) {
+            posX = e.targetTouches[i].clientX - initX;
+            posY = e.targetTouches[i].clientY - initY;
+            break;
+          }
+        }
+      }
       tmag = Math.sqrt(posX**2+posY**2);
       if (tmag > constraint) {
         posY = posY*constraint/tmag;
@@ -324,8 +346,9 @@
 
     function dragEnd() {
       // stop moving when touch ends:
-      document.ontouchend = null;
-      document.ontouchmove = null;
+      elem.ontouchend = null;
+      elem.ontouchcancel = null;
+      elem.ontouchmove = null;
       document.onmouseup = null;
       document.onmousemove = null;
       elem.style.top = "0px";

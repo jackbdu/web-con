@@ -249,7 +249,7 @@ button.top, button.shared {
 .joy.right .option.home {
   top: 25vh;
   left: 7vw;
-  transform: translate(50%, -50%) rotate(90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
 .option.home {

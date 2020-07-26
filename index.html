@@ -6,43 +6,6 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="apple-touch-icon" href="assets/icon.png">
-  <script type="text/javascript">
-
-    var ws;
-    
-    function init() {
-
-      // Connect to Web Socket
-      ws = new WebSocket(location.search.substring(1));
-
-      // Set event handlers.
-      ws.onopen = function() {
-        console.log("onopen");
-      };
-      
-      ws.onmessage = function(e) {
-        // e.data contains received string.
-        console.log("onmessage: " + e.data);
-      };
-      
-      ws.onclose = function() {
-        console.log("onclose");
-      };
-
-      ws.onerror = function(e) {
-        console.log("onerror");
-        console.log(e)
-      };
-
-    }
-    
-    function clickButton(elem) {
-      var cmd = elem.id;
-      ws.send(cmd);
-      console.log("send: " + cmd);
-    }
-
-  </script>
   <style>
     html, body, button, span, applet, object, iframe,
     h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -104,21 +67,34 @@
     }
 
     .stick {
-      width: 20vh;
-      height: 20vh;
-      border-radius: 10vh;
+      position: fixed;
     }
 
     .stick.left {
       top: 39vh;
       left: 21vw;
+    }
+
+    .stick button.head {
+      width: 20vh;
+      height: 20vh;
+      border-radius: 10vh;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+
+    .stick.left .head {
       transform: translate(-50%, -50%);
     }
 
     .stick.right {
       bottom: 25vh;
       right: 35vw;
-      transform: translate(50%, 50%);
+    }
+
+    .stick.right .head {
+      transform: translate(-50%, -50%);
     }
 
     .option {
@@ -244,8 +220,12 @@
   <button onclick="clickButton(this)" id="l" class="top left">L</button>
   <button onclick="clickButton(this)" id="zr" class="top right">ZR</button>
   <button onclick="clickButton(this)" id="r" class="top right">R</button>
-  <button onclick="clickButton(this)" id="l_stick" class="stick left"></button>
-  <button onclick="clickButton(this)" id="r_stick" class="stick right"></button>
+  <div class="stick left">
+    <button onclick="clickButton(this)" id="l_stick" class="head"></button>
+  </div>
+  <div class="stick right">
+    <button onclick="clickButton(this)" id="r_stick" class="head"></button>
+  </div>
   <button onclick="clickButton(this)" id="minus" class="option minus"></button>
   <button onclick="clickButton(this)" id="plus" class="option plus"></button>
   <button onclick="clickButton(this)" id="capture" class="option capture"></button>
@@ -263,4 +243,85 @@
     <button onclick="clickButton(this)" id="left" class="direction w"></button>
   </div>
 </body>
+<script type="text/javascript">
+
+  var ws;
+  
+  function init() {
+
+    // Connect to Web Socket
+    ws = new WebSocket(location.search.substring(1));
+
+    // Set event handlers.
+    ws.onopen = function() {
+      console.log("onopen");
+    };
+    
+    ws.onmessage = function(e) {
+      // e.data contains received string.
+      console.log("onmessage: " + e.data);
+    };
+    
+    ws.onclose = function() {
+      console.log("onclose");
+    };
+
+    ws.onerror = function(e) {
+      console.log("onerror");
+      console.log(e)
+    };
+
+  }
+  
+  function clickButton(elem) {
+    var cmd = elem.id;
+    ws.send(cmd);
+    console.log("send: " + cmd);
+  }
+
+  dragElement(document.getElementById("l_stick"));
+  dragElement(document.getElementById("r_stick"));
+
+  function dragElement(elem) {
+    var initX = 0, initY = 0;
+
+    elem.onmousedown = dragMouseDown;
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // get the mouse cursor position at startup:
+      initX = e.clientX;
+      initY = e.clientY;
+      document.onmouseup = closeDragElement;
+      // call a function whenever the cursor moves:
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      e.preventDefault();
+      // calculate the new cursor position:
+      posX = e.clientX - initX;
+      posY = e.clientY - initY;
+      tmag = Math.sqrt(posX**2+posY**2);
+      if (tmag > elem.clientWidth/2) {
+        elem.style.top = posY*elem.clientWidth/2/tmag + "px";
+        elem.style.left = posX*elem.clientWidth/2/tmag + "px";
+      } else {
+        elem.style.top = posY + "px";
+        elem.style.left = posX + "px";
+      }
+    }
+
+    function closeDragElement() {
+      // stop moving when mouse button is released:
+      document.onmouseup = null;
+      document.onmousemove = null;
+      elem.style.top = "0px";
+      elem.style.left = "0px";
+    }
+  }
+
+</script>
 </html>

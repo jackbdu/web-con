@@ -1,61 +1,6 @@
 var host = findGetParameter("host");
 var debug = findGetParameter("debug");
 
-document.getElementById("zl").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("zr").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("l").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("r").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("l_stick").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("r_stick").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("minus").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("plus").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("capture").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("home").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("x").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("a").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("b").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("y").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("up").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("right").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("down").addEventListener('click', function(event) {
-  clickButton(event);
-});
-document.getElementById("left").addEventListener('click', function(event) {
-  clickButton(event);
-});
-
 function display(str) {
   if (debug === 'true') {
     var display = document.getElementById("display");
@@ -110,8 +55,8 @@ function init() {
 
 }
 
-function clickButton(event) {
-  var button = event.target.id || event.srcElement.id;
+function clickButton(elem) {
+  var button = elem.id;
   display("Button <" + button + "> pushed");
   ws.send('c,'+button);
 }

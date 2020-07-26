@@ -1,0 +1,228 @@
+html, body, button, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+body {
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  font-family: Helvetica, sans-serif;
+}
+
+button {
+  position: fixed;
+  font-size: 6vh;
+  background-color: #111;
+  cursor: pointer;
+  outline: none;
+}
+
+.display {
+  position: fixed;
+  top: 1vh;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 36vh;
+  height: 5vh;
+  line-height: 2vh;
+  border-radius: 1vh;
+  border: 2px solid #111;
+  background-color: #eee;
+  color: #222;
+  padding: 2vh;
+  font-size: 2vh;
+  font-family: monospace;
+  overflow: hidden;
+  display: none;
+}
+
+.top {
+  width: 20vh;
+  height: 9vh;
+  border-radius: 2vh;
+}
+
+button.top {
+  color: #666;
+}
+
+.top.left {
+  left: 1vw;
+}
+
+.top.right {
+  right: 1vw;
+}
+
+.top#zl, .top#zr {
+  top: 1vh;
+}
+
+.top#l, .top#r {
+  top: 11vh;
+}
+
+.stick {
+  position: fixed;
+}
+
+.stick.left {
+  top: 39vh;
+  left: 21vw;
+}
+
+.stick button.head {
+  width: 20vh;
+  height: 20vh;
+  border-radius: 10vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  cursor: move;
+}
+
+.stick.left .head {
+  transform: translate(-50%, -50%);
+}
+
+.stick.right {
+  bottom: 25vh;
+  right: 35vw;
+}
+
+.stick.right .head {
+  transform: translate(-50%, -50%);
+}
+
+.option {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 5vh;
+}
+
+.option.plus, .option.minus {
+  top: 25vh;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.option.minus {
+  left: 40vw;
+  transform: translate(-50%, -50%);
+  background-image: url("../assets/minus-icon.svg");
+}
+
+.option.plus {
+  right: 40vw;
+  transform: translate(50%, -50%);
+  background-image: url("../assets/plus-icon.svg");
+  
+}
+
+.option.home, .option.capture {
+  top: 40vh;
+  background-size: 70% 70%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.option.capture {
+  left: 45vw;
+  transform: translate(-50%, -50%);
+  width: 9vh;
+  height: 9vh;
+  border-radius: 2vh;
+  background-image: url("../assets/capture-icon.svg");
+}
+
+.option.home {
+  right: 45vw;
+  transform: translate(50%, -50%);
+  background-image: url("../assets/home-icon.svg");
+}
+
+.directions, .letters {
+  width: 0;
+  height: 0;
+  position: fixed;
+}
+
+.directions {
+  bottom: 25vh;
+  left: 34vw;
+}
+
+.letters {
+  top: 40vh;
+  right: 21vw;
+}
+
+.directions button, .letters button {
+  position: absolute;
+  color: #ccc;
+}
+
+.directions button {
+  width: 15vh;
+  height: 15vh;
+  border-radius: 4vh;
+  background-image: url("../assets/arrow-icon.svg");
+  background-size: 30% 30%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.letters button {
+  width: 16vh;
+  height: 16vh;
+  border-radius: 8vh;
+}
+
+.n {
+  bottom: 15vh;
+  transform: translate(-50%, 50%);
+}
+
+.e {
+  left: 15vh;
+  transform: translate(-50%, -50%);
+}
+
+.directions .e {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.s {
+  top: 15vh;
+  transform: translate(-50%, -50%);
+}
+
+.directions .s {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.w {
+  right: 15vh;
+  transform: translate(50%, -50%);
+}
+
+.directions .w {
+  transform: translate(50%, -50%) rotate(-90deg);
+}

@@ -1,5 +1,7 @@
 var host = findGetParameter("host");
 var debug = findGetParameter("debug");
+var type = findGetParameter("type");
+type = type ? type : "pro";
 
 function display(str) {
   if (debug === 'true') {
@@ -31,27 +33,36 @@ function init() {
 
   display("Welcome to Web-Con!");
 
-  // Connect to Web Socket
-  ws = new WebSocket(host);
+  if (type === "left" || type === "right") {
+    document.body.className = "joy " + type;
+  } else {
+    document.body.className = "pro";
+  }
 
-  // Set event handlers.
-  ws.onopen = function() {
-    console.log("onopen");
-  };
+  if (host) {
 
-  ws.onmessage = function(e) {
-    // e.data contains received string.
-    console.log("onmessage: " + e.data);
-  };
+    // Connect to Web Socket
+    ws = new WebSocket(host);
 
-  ws.onclose = function() {
-    console.log("onclose");
-  };
+    // Set event handlers.
+    ws.onopen = function() {
+      console.log("onopen");
+    };
 
-  ws.onerror = function(e) {
-    console.log("onerror");
-    console.log(e)
-  };
+    ws.onmessage = function(e) {
+      // e.data contains received string.
+      console.log("onmessage: " + e.data);
+    };
+
+    ws.onclose = function() {
+      console.log("onclose");
+    };
+
+    ws.onerror = function(e) {
+      console.log("onerror");
+      console.log(e)
+    };
+  }
 
 }
 

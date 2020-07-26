@@ -73,15 +73,18 @@
 
     button {
       position: fixed;
-      font-size: 5vh;
+      font-size: 6vh;
       background-color: #111;
-      color: #eee;
     }
 
     .top {
       width: 20vh;
       height: 9vh;
       border-radius: 2vh;
+    }
+
+    button.top {
+      color: #666;
     }
 
     .top.left {
@@ -126,20 +129,29 @@
 
     .option.plus, .option.minus {
       top: 25vh;
+      background-size: 50% 50%;
+      background-repeat: no-repeat;
+      background-position: center center;
     }
 
     .option.minus {
       left: 40vw;
       transform: translate(-50%, -50%);
+      background-image: url("assets/minus-icon.svg");
     }
 
     .option.plus {
       right: 40vw;
       transform: translate(50%, -50%);
+      background-image: url("assets/plus-icon.svg");
+      
     }
 
     .option.home, .option.capture {
       top: 40vh;
+      background-size: 70% 70%;
+      background-repeat: no-repeat;
+      background-position: center center;
     }
 
     .option.capture {
@@ -148,11 +160,13 @@
       width: 9vh;
       height: 9vh;
       border-radius: 2vh;
+      background-image: url("assets/capture-icon.svg");
     }
 
     .option.home {
       right: 45vw;
       transform: translate(50%, -50%);
+      background-image: url("assets/home-icon.svg");
     }
 
     .directions, .letters {
@@ -173,12 +187,17 @@
     
     .directions button, .letters button {
       position: absolute;
+      color: #ccc;
     }
 
     .directions button {
       width: 15vh;
       height: 15vh;
       border-radius: 4vh;
+      background-image: url("assets/arrow-icon.svg");
+      background-size: 30% 30%;
+      background-repeat: no-repeat;
+      background-position: center center;
     }
 
     .letters button {
@@ -197,9 +216,17 @@
       transform: translate(-50%, -50%);
     }
 
+    .directions .e {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
     .s {
       top: 15vh;
       transform: translate(-50%, -50%);
+    }
+
+    .directions .s {
+      transform: translate(-50%, -50%) rotate(180deg);
     }
 
     .w {
@@ -207,6 +234,9 @@
       transform: translate(50%, -50%);
     }
 
+    .directions .w {
+      transform: translate(50%, -50%) rotate(-90deg);
+    }
   </style>
 </head>
 <body onload="init();">
@@ -216,10 +246,10 @@
   <button onclick="clickButton(this)" id="r" class="top right">R</button>
   <button onclick="clickButton(this)" id="l_stick" class="stick left"></button>
   <button onclick="clickButton(this)" id="r_stick" class="stick right"></button>
-  <button onclick="clickButton(this)" id="minus" class="option minus">-</button>
-  <button onclick="clickButton(this)" id="plus" class="option plus">+</button>
-  <button onclick="clickButton(this)" id="capture" class="option capture">C</button>
-  <button onclick="clickButton(this)" id="home" class="option home">H</button>
+  <button onclick="clickButton(this)" id="minus" class="option minus"></button>
+  <button onclick="clickButton(this)" id="plus" class="option plus"></button>
+  <button onclick="clickButton(this)" id="capture" class="option capture"></button>
+  <button onclick="clickButton(this)" id="home" class="option home"></button>
   <div class="letters">
     <button onclick="clickButton(this)" id="x" class="letter n">X</button>
     <button onclick="clickButton(this)" id="a" class="letter e">A</button>
@@ -227,10 +257,10 @@
     <button onclick="clickButton(this)" id="y" class="letter w">Y</button>
   </div>
   <div class="directions">
-    <button onclick="clickButton(this)" id="up" class="direction n">U</button>
-    <button onclick="clickButton(this)" id="right" class="direction e">R</button>
-    <button onclick="clickButton(this)" id="down" class="direction s">L</button>
-    <button onclick="clickButton(this)" id="left" class="direction w">D</button>
+    <button onclick="clickButton(this)" id="up" class="direction n"></button>
+    <button onclick="clickButton(this)" id="right" class="direction e"></button>
+    <button onclick="clickButton(this)" id="down" class="direction s"></button>
+    <button onclick="clickButton(this)" id="left" class="direction w"></button>
   </div>
 </body>
 </html>

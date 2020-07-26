@@ -284,7 +284,7 @@
 
   function dragElement(elem) {
     var initX = 0, initY = 0, posX = 0, posY = 0;
-    var constraint = elem.clientWidth/4;
+    var constraint = elem.clientWidth/2;
 
     elem.ontouchstart = dragStart;
     elem.onmousedown = dragStart;
@@ -315,8 +315,8 @@
       }
       elem.style.top = posY + "px";
       elem.style.left = posX + "px";
-      var hVal = Math.round((posX+constraint)/constraint/2*4095).toString();
-      var vVal = Math.round((constraint-posY)/constraint/2*4095).toString();
+      var hVal = Math.round(4095*(Math.sin(posX/constraint/2*Math.PI)+1)/2).toString();
+      var vVal = Math.round(4095*(Math.sin(-posY/constraint/2*Math.PI)+1)/2).toString();
       ws.send('s,'+elem.id.charAt(0)+',h,'+hVal)
       ws.send('s,'+elem.id.charAt(0)+',v,'+vVal)
       console.log('Drag moved: s,'+elem.id.charAt(0)+',h,'+hVal);

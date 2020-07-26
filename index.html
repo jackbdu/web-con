@@ -284,27 +284,30 @@
 
   function dragElement(elem) {
     var initX = 0, initY = 0, posX = 0, posY = 0;
-    var constraint = elem.clientWidth/2;
+    var constraint = elem.clientWidth/4;
 
-    elem.ontouchstart = dragTouchStart;
+    elem.ontouchstart = dragStart;
+    elem.onmousedown = dragStart;
 
-    function dragTouchStart(e) {
+    function dragStart(e) {
       e = e || window.event;
       e.preventDefault();
       // get the touch position at startup:
-      initX = e.clientX;
-      initY = e.clientY;
-      document.ontouchend = dragTouchEnd;
-      // call a function whenever the cursor moves:
-      document.ontouchmove = dragTouchMove;
+      initX = e.pageX;
+      initY = e.pageY;
+      document.ontouchend = dragEnd;
+      document.ontouchmove = dragMove;
+      document.onmouseup = dragEnd;
+      document.onmousemove = dragMove;
+      console.log('Drag started at '+initX+', '+initY);
     }
 
-    function dragTouchMove(e) {
+    function dragMove(e) {
       e = e || window.event;
       e.preventDefault();
       // calculate the new touch position:
-      posX = e.clientX - initX;
-      posY = e.clientY - initY;
+      posX = e.pageX - initX;
+      posY = e.pageY - initY;
       tmag = Math.sqrt(posX**2+posY**2);
       if (tmag > constraint) {
         posY = posY*constraint/tmag;
@@ -316,57 +319,21 @@
       var vVal = Math.floor((constraint-posY)/constraint/2*4096).toString();
       ws.send('s,'+elem.id.charAt(0)+',h,'+hVal)
       ws.send('s,'+elem.id.charAt(0)+',v,'+vVal)
+      console.log('Drag moved: s,'+elem.id.charAt(0)+',h,'+hVal);
     }
 
-    function dragTouchEnd() {
+    function dragEnd() {
       // stop moving when touch ends:
       document.ontouchend = null;
       document.ontouchmove = null;
-      ws.send('s,'+elem.id.charAt(0)+',center,2048')
-      elem.style.top = "0px";
-      elem.style.left = "0px";
-    }
-
-    elem.onmousedown = dragMouseDown;
-
-    function dragMouseDown(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // get the mouse cursor position at startup:
-      initX = e.clientX;
-      initY = e.clientY;
-      document.onmouseup = closeDragElement;
-      // call a function whenever the cursor moves:
-      document.onmousemove = elementDrag;
-    }
-
-    function elementDrag(e) {
-      e = e || window.event;
-      e.preventDefault();
-      // calculate the new cursor position:
-      posX = e.clientX - initX;
-      posY = e.clientY - initY;
-      tmag = Math.sqrt(posX**2+posY**2);
-      if (tmag > constraint) {
-        posY = posY*constraint/tmag;
-        posX = posX*constraint/tmag;
-      }
-      elem.style.top = posY + "px";
-      elem.style.left = posX + "px";
-      var hVal = Math.floor((posX+constraint)/constraint/2*4096).toString();
-      var vVal = Math.floor((constraint-posY)/constraint/2*4096).toString();
-      ws.send('s,'+elem.id.charAt(0)+',h,'+hVal)
-      ws.send('s,'+elem.id.charAt(0)+',v,'+vVal)
-    }
-
-    function closeDragElement() {
-      // stop moving when mouse button is released:
       document.onmouseup = null;
       document.onmousemove = null;
-      ws.send('s,'+elem.id.charAt(0)+',center,2048')
       elem.style.top = "0px";
       elem.style.left = "0px";
+      console.log('Drag ended: s,'+elem.id.charAt(0)+',center,2048');
+      ws.send('s,'+elem.id.charAt(0)+',center,2048')
     }
+
   }
 
 </script>

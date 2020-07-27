@@ -19,6 +19,7 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+
 body {
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
@@ -26,30 +27,20 @@ body {
   font-family: Helvetica, sans-serif;
 }
 
-body.pro {
-  background-color: #828282;
+/* controller differences */
+.pro .joy {
+  display: none;
 }
 
-body.joy.right {
-  background-color: #FF3C28;
+.joy.left .right {
+  display: none;
 }
 
-body.joy.left {
-  background-color: #0AB9E6;
+.joy.right .left {
+  display: none;
 }
 
-.pro button {
-  background-color: #111;
-}
-
-.joy.left button {
-  background-color: #001E1E;
-}
-
-.joy.right button {
-  background-color: #1E0A0A;
-}
-
+/* debugging */
 .display {
   position: fixed;
   top: 1vh;
@@ -69,18 +60,36 @@ body.joy.left {
   display: none;
 }
 
-.pro .shared {
-  display: none;
+/* color schemes */
+body.pro {
+  background-color: #828282;
 }
 
-.joy.left .right {
-  display: none;
+body.joy.left {
+  background-color: #0AB9E6;
 }
 
-.joy.right .left {
-  display: none;
+body.joy.right {
+  background-color: #FF3C28;
 }
 
+body.pro button {
+  background-color: #111;
+}
+
+body.joy.left button {
+  background-color: #001E1E;
+}
+
+body.joy.right button {
+  background-color: #1E0A0A;
+}
+
+div.directions button, div.letters button {
+  color: #ccc;
+}
+
+/* all buttons */
 button {
   position: fixed;
   font-size: 6vh;
@@ -88,206 +97,207 @@ button {
   outline: none;
 }
 
-.top, .shared {
+/* top and side buttons */
+button.top, button.side {
   width: 20vh;
   height: 9vh;
   border-radius: 2vh;
-}
-
-button.top, button.shared {
   color: #666;
 }
 
-.top.left, .shared.sl {
-  left: 1vw;
+button.top.left, button.side.sl {
+  left: 1vh;
 }
 
-.joy.left .top.left.zl, .joy.right .top.right.zr {
+button.top.right, button.side.sr{
+  right: 1vh;
+}
+
+.joy button.top.zl, .joy button.top.zr {
   bottom: 1vh;  
 }
 
-.joy.left .top.left.l, .joy.right .top.right.r {
+.joy button.top.l, .joy button.top.r {
   bottom: 11vh;  
 }
 
-.top.right, .shared.sr{
-  right: 1vw;
-}
-
-.pro .top#zl, .pro .top#zr, .shared {
+.pro button.top.zl, .pro button.top.zr, button.side {
   top: 1vh;
 }
 
-.pro .top#l, .pro .top#r {
+.pro button.top.l, .pro button.top.r {
   top: 11vh;
 }
 
-.stick {
+/* analog sticks */
+div.stick {
   position: fixed;
+  width: 0;
+  height: 0;
 }
 
-.pro .stick.left {
+.pro div.stick.left {
   top: 39vh;
   left: 21vw;
 }
 
-.joy .stick {
-  top: 50vh;
-  left: 25vw;
-}
-
-.stick button.head {
-  width: 20vh;
-  height: 20vh;
-  border-radius: 10vh;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  cursor: move;
-}
-
-.pro .stick.left .head {
-  transform: translate(-50%, -50%);
-}
-
-.joy.left  .stick.left .head{
-  transform: translate(-50%, -50%) rotate(-90deg);
-}
-
-.pro .stick.right {
+.pro div.stick.right {
   bottom: 25vh;
   right: 35vw;
 }
 
-.pro .stick.right .head {
+.joy div.stick {
+  top: 50vh;
+  left: 25vw;
+}
+
+div.stick button.head {
+  position: absolute;
+  cursor: move;
+  width: 20vh;
+  height: 20vh;
+  border-radius: 10vh;
+  top: 0;
+  bottom: 0;
+}
+
+.pro div.stick button.head {
   transform: translate(-50%, -50%);
 }
 
-.joy.right .stick.right .head{
+.joy.left  div.stick.left button.head{
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.joy.right div.stick.right button.head{
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.option {
+/* option buttons */
+button.option {
   width: 10vh;
   height: 10vh;
   border-radius: 5vh;
 }
 
-.pro .option.plus, .pro .option.minus {
-  top: 25vh;
-}
-
-.option.plus, .option.minus {
+/* minus and plus buttons*/
+button.option.minus, button.option.plus {
   background-size: 50% 50%;
   background-repeat: no-repeat;
   background-position: center center;
+  top: 25vh;
 }
 
-.pro .option.minus {
+button.option.minus {
+  background-image: url("../assets/minus-icon.svg");
+}
+
+button.option.plus {
+  background-image: url("../assets/plus-icon.svg");
+}
+
+.pro button.option.minus {
   left: 40vw;
   transform: translate(-50%, -50%);
 }
 
-.option.minus {
-  background-image: url("../assets/minus-icon.svg");
-}
-
-.joy.left .option.minus {
-  top: 25vh;
-  left: 7vw;
-  transform: translate(-50%, -50%) rotate(-90deg);
-}
-
-.pro .option.plus {
+.pro button.option.plus {
   right: 40vw;
   transform: translate(50%, -50%);
 }
 
-.joy.right .option.plus {
-  top: 25vh;
-  right: 7vw;
+.joy.left button.option.minus {
+  left: 11vh;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.joy.right button.option.plus {
+  right: 11vh;
   transform: translate(50%, -50%) rotate(90deg);
 }
 
-.option.plus {
-  background-image: url("../assets/plus-icon.svg");
-}
-
-.pro .option.home, .pro .option.capture {
-  top: 40vh;
-}
-
-.joy.left .option.capture {
-  top: 25vh;
-  right: 7vw;
-  transform: translate(50%, -50%) rotate(-90deg);
-}
-
-.option.home, .option.capture {
+/* capture and home buttons */
+button.option.capture, button.option.home {
   background-size: 70% 70%;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
-.pro .option.capture {
-  left: 45vw;
-  transform: translate(-50%, -50%);
-}
-
-.option.capture {
+button.option.capture {
   width: 9vh;
   height: 9vh;
   border-radius: 2vh;
   background-image: url("../assets/capture-icon.svg");
 }
 
-.pro .option.home {
+button.option.home {
+  background-image: url("../assets/home-icon.svg");
+}
+
+.pro button.option.capture, .pro button.option.home {
+  top: 40vh;
+}
+
+.pro button.option.capture {
+  left: 45vw;
+  transform: translate(-50%, -50%);
+}
+
+.pro button.option.home {
   right: 45vw;
   transform: translate(50%, -50%);
 }
 
-.joy.right .option.home {
+.joy button.option.capture, .joy button.option.home {
   top: 25vh;
-  left: 7vw;
+}
+
+.joy.left button.option.capture {
+  right: 11vh;
+  transform: translate(50%, -50%) rotate(-90deg);
+}
+
+.joy.right button.option.home {
+  left: 11vh;
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.option.home {
-  background-image: url("../assets/home-icon.svg");
-}
-
-.directions, .letters {
+/* direction and letter button collections */
+div.directions, div.letters {
   width: 0;
   height: 0;
   position: fixed;
 }
 
-.pro .directions {
+.pro div.directions {
   bottom: 25vh;
   left: 34vw;
 }
 
-.joy.left .directions {
-  right: 30vw;
-  top: 50vh;
-}
-
-.pro .letters {
+.pro div.letters {
   top: 40vh;
   right: 21vw;
 }
 
-.joy.right .letters {
-  top: 50vh;
+.joy div.directions, .joy div.letters {
   right: 30vw;
+  bottom: 50vh;
 }
 
-.directions button, .letters button {
+.joy.left div.directions {
+  transform: rotate(-90deg);
+}
+
+.joy.right div.letters {
+  transform: rotate(90deg);
+}
+
+/* direction and letter buttons */
+div.directions button, div.letters button {
   position: absolute;
-  color: #ccc;
 }
 
-.directions button {
+div.directions button {
   background-image: url("../assets/arrow-icon.svg");
   background-size: 30% 30%;
   background-repeat: no-repeat;
@@ -306,54 +316,34 @@ button.top, button.shared {
   border-radius: 8vh;
 }
 
-.pro .n, .joy.left .e {
+button.n {
   bottom: 15vh;
   transform: translate(-50%, 50%);
 }
 
-.joy.right .w {
-  bottom: 15vh;
-  transform: translate(-50%, 50%) rotate(90deg);
-}
-
-.pro .e, .joy.left .s {
+button.e {
   left: 15vh;
   transform: translate(-50%, -50%);
 }
 
-.joy.right .n {
-  left: 15vh;
+div.directions button.e {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.pro .directions .e, .joy.left .directions .s {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.pro .s, .joy.left .w {
+button.s {
   top: 15vh;
   transform: translate(-50%, -50%);
 }
 
-.joy.right .e {
-  top: 15vh;
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.pro .directions .s, .joy.left .directions .w {
+div.directions button.s {
   transform: translate(-50%, -50%) rotate(180deg);
 }
 
-.pro .w, .joy.left .n {
+button.w {
   right: 15vh;
   transform: translate(50%, -50%);
 }
 
-.joy.right .s {
-  right: 15vh;
-  transform: translate(50%, -50%) rotate(90deg);
-}
-
-.pro .directions .w, .joy.left .directions .n {
+div.directions button.w {
   transform: translate(50%, -50%) rotate(-90deg);
 }

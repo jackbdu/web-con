@@ -130,10 +130,10 @@ function dragElement(elem) {
     elem.style.left = posX + "px";
     var hVal = 0;
     var vVal = 0;
-    if (type === "left") {
+    if (type === "left" && window.innerWidth / window.innerHeight >= 4/5) {
       vVal = Math.round(4095*(Math.sin(-posX/constraint/2*Math.PI)+1)/2).toString();
       hVal = Math.round(4095*(Math.sin(-posY/constraint/2*Math.PI)+1)/2).toString();
-    } else if (type === "right") {
+    } else if (type === "right" && window.innerWidth / window.innerHeight >= 4/5) {
       vVal = Math.round(4095*(Math.sin(posX/constraint/2*Math.PI)+1)/2).toString();
       hVal = Math.round(4095*(Math.sin(posY/constraint/2*Math.PI)+1)/2).toString();
     } else {

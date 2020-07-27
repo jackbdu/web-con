@@ -28,15 +28,15 @@ body {
 }
 
 /* controller differences */
-.pro .joy {
+body.pro .side {
   display: none;
 }
 
-.joy.left .right {
+body.joy.left .right {
   display: none;
 }
 
-.joy.right .left {
+body.joy.right .left {
   display: none;
 }
 
@@ -105,28 +105,40 @@ button.top, button.side {
   color: #666;
 }
 
-button.top.left, button.side.sl {
+button.top.left {
   left: 1vh;
 }
 
-button.top.right, button.side.sr{
+button.top.right{
   right: 1vh;
 }
 
-.joy button.top.zl, .joy button.top.zr {
-  bottom: 1vh;  
+body.joy button {
+  font-size: 8vw;
 }
 
-.joy button.top.l, .joy button.top.r {
-  bottom: 11vh;  
-}
-
-.pro button.top.zl, .pro button.top.zr, button.side {
+button.top.zl, button.top.zr {
   top: 1vh;
 }
 
-.pro button.top.l, .pro button.top.r {
+button.top.l, button.top.r {
   top: 11vh;
+}
+
+body.joy.left button.side {
+  right: 1vh;
+}
+
+body.joy.right button.side {
+  left: 1vh;
+}
+
+body.joy.left button.sl, body.joy.right button.sl {
+  top: 1vh;
+}
+
+body.joy.left button.sr, body.joy.right button.sr {
+  bottom: 1vh;
 }
 
 /* analog sticks */
@@ -136,19 +148,28 @@ div.stick {
   height: 0;
 }
 
-.pro div.stick.left {
+div.stick.left {
   top: 39vh;
+}
+
+div.stick.right {
+  bottom: 25vh;
+}
+
+body.pro div.stick.left {
   left: 21vw;
 }
 
-.pro div.stick.right {
-  bottom: 25vh;
+body.pro div.stick.right {
   right: 35vw;
 }
 
-.joy div.stick {
-  top: 50vh;
-  left: 25vw;
+body.joy.left div.stick {
+  left: 40vw;
+}
+
+body.joy.right div.stick {
+  right: 40vw;
 }
 
 div.stick button.head {
@@ -161,16 +182,13 @@ div.stick button.head {
   bottom: 0;
 }
 
-.pro div.stick button.head {
+div.stick button.head {
   transform: translate(-50%, -50%);
 }
 
-.joy.left  div.stick.left button.head{
-  transform: translate(-50%, -50%) rotate(-90deg);
-}
-
-.joy.right div.stick.right button.head{
-  transform: translate(-50%, -50%) rotate(90deg);
+body.joy div.stick button.head {
+  width: 20vw;
+  height: 20vw;
 }
 
 /* option buttons */
@@ -196,24 +214,30 @@ button.option.plus {
   background-image: url("../assets/plus-icon.svg");
 }
 
-.pro button.option.minus {
+body.pro button.option.minus {
   left: 40vw;
   transform: translate(-50%, -50%);
 }
 
-.pro button.option.plus {
+body.pro button.option.plus {
   right: 40vw;
   transform: translate(50%, -50%);
 }
 
-.joy.left button.option.minus {
-  left: 11vh;
-  transform: translate(-50%, -50%) rotate(-90deg);
+body.joy button.option {
+  width: 13vw;
+  height: 13vw;
+  border-radius: 6.5vw;
 }
 
-.joy.right button.option.plus {
-  right: 11vh;
-  transform: translate(50%, -50%) rotate(90deg);
+body.joy button.option.minus {
+  right: 10vw;
+  transform: translate(50%, -50%);
+}
+
+body.joy button.option.plus {
+  left: 10vw;
+  transform: translate(-50%, -50%);
 }
 
 /* capture and home buttons */
@@ -234,32 +258,35 @@ button.option.home {
   background-image: url("../assets/home-icon.svg");
 }
 
-.pro button.option.capture, .pro button.option.home {
+body.pro button.option.capture, body.pro button.option.home {
   top: 40vh;
 }
 
-.pro button.option.capture {
+body.pro button.option.capture {
   left: 45vw;
   transform: translate(-50%, -50%);
 }
 
-.pro button.option.home {
+body.pro button.option.home {
   right: 45vw;
   transform: translate(50%, -50%);
 }
 
-.joy button.option.capture, .joy button.option.home {
-  top: 25vh;
+body.joy button.option.capture, body.joy button.option.home {
+  bottom: 25vh;
 }
 
-.joy.left button.option.capture {
-  right: 11vh;
-  transform: translate(50%, -50%) rotate(-90deg);
+body.joy button.option.capture {
+  width: 12vw;
+  height: 12vw;
+  border-radius: 2vw;
+  right: 10vw;
+  transform: translate(50%, 50%);
 }
 
-.joy.right button.option.home {
-  left: 11vh;
-  transform: translate(-50%, -50%) rotate(90deg);
+body.joy button.option.home {
+  left: 10vw;
+  transform: translate(-50%, 50%);
 }
 
 /* direction and letter button collections */
@@ -269,27 +296,24 @@ div.directions, div.letters {
   position: fixed;
 }
 
-.pro div.directions {
+body.pro div.directions {
   bottom: 25vh;
   left: 34vw;
 }
 
-.pro div.letters {
+body.pro div.letters {
   top: 40vh;
   right: 21vw;
 }
 
-.joy div.directions, .joy div.letters {
-  right: 30vw;
-  bottom: 50vh;
+body.joy div.directions {
+  left: 45vw;
+  bottom: 30vh;
 }
 
-.joy.left div.directions {
-  transform: rotate(-90deg);
-}
-
-.joy.right div.letters {
-  transform: rotate(90deg);
+body.joy div.letters {
+  top: 45vh;
+  right: 50vw;
 }
 
 /* direction and letter buttons */
@@ -304,16 +328,22 @@ div.directions button {
   background-position: center center;
 }
 
-.pro .directions button {
+.directions button {
   width: 15vh;
   height: 15vh;
   border-radius: 4vh;
 }
 
-.letters button, .joy.left .directions button {
+.letters button {
   width: 16vh;
   height: 16vh;
   border-radius: 8vh;
+}
+
+body.joy .directions button, body.joy .letters button {
+  width: 20vw;
+  height: 20vw;
+  border-radius: 10vw;
 }
 
 button.n {
@@ -321,9 +351,17 @@ button.n {
   transform: translate(-50%, 50%);
 }
 
+body.joy button.n {
+  bottom: 20vw;
+}
+
 button.e {
   left: 15vh;
   transform: translate(-50%, -50%);
+}
+
+body.joy button.e {
+  left: 20vw;
 }
 
 div.directions button.e {
@@ -335,6 +373,10 @@ button.s {
   transform: translate(-50%, -50%);
 }
 
+body.joy button.s {
+  top: 20vw;
+}
+
 div.directions button.s {
   transform: translate(-50%, -50%) rotate(180deg);
 }
@@ -344,6 +386,152 @@ button.w {
   transform: translate(50%, -50%);
 }
 
+body.joy button.w {
+  right: 20vw;
+}
+
 div.directions button.w {
   transform: translate(50%, -50%) rotate(-90deg);
+}
+
+@media screen and (min-aspect-ratio: 4/5) {
+
+  body.joy button {
+    font-size: 6vh;
+  }
+
+  body.joy button.side.sl {
+    right: auto;
+    left: 1vh;
+  }
+
+  body.joy button.side.sr {
+    left: auto;
+    right: 1vh;
+  }
+
+  body.joy button.side {
+    top: 1vh;
+  }
+
+  body.joy div.stick button.head {
+    width: 20vh;
+    height: 20vh;
+  }
+
+  body.joy button.option {
+    width: 10vh;
+    height: 10vh;
+    border-radius: 5vh;
+  }
+
+  body.joy button.option.capture {
+    width: 9vh;
+    height: 9vh;
+    border-radius: 2vh;
+  }
+
+  body.joy .directions button, body.joy .letters button {
+    width: 16vh;
+    height: 16vh;
+    border-radius: 8vh;
+  }
+
+  body.joy button.n {
+    bottom: 15vh;
+  }
+
+  body.joy button.e {
+    left: 15vh;
+  }
+
+  body.joy button.s {
+    top: 15vh;
+  }
+
+  body.joy button.w {
+    right: 15vh;
+  }
+  
+  div.joy button.side.sl {
+    left: 1vh;
+  }
+
+  div.joy button.side.sr {
+    right: 1vh;
+  }
+
+  body.joy button.side {
+    top: 1vh;
+  }
+
+  body.joy button.top.zl, body.joy button.top.zr {
+    top: auto;
+    bottom: 1vh;  
+  }
+
+  body.joy button.top.l, body.joy button.top.r {
+    top: auto;
+    bottom: 11vh;  
+  }
+
+  body.joy.left div.stick, body.joy.right div.stick {
+    top: 50vh;
+    left: 25vw;
+  }
+
+  body.joy.left  div.stick.left button.head {
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+
+  body.joy.right div.stick.right button.head {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  body.joy.left button.option.minus {
+    left: 11vh;
+    transform: translate(-50%, -50%) rotate(-90deg);
+  }
+
+  body.joy.right button.option.plus {
+    left: auto;
+    right: 11vh;
+    transform: translate(50%, -50%) rotate(90deg);
+  }
+
+  body.joy button.option.capture, body.joy button.option.home {
+    top: 25vh;
+  }
+
+  body.joy.left button.option.capture {
+    right: 11vh;
+    transform: translate(50%, -50%) rotate(-90deg);
+  }
+
+  body.joy.right button.option.home {
+    left: 11vh;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  body.joy.left div.directions, body.joy.right div.letters {
+    left: auto;
+    top: auto;
+    right: 30vw;
+    bottom: 50vh;
+  }
+
+  body.joy.left div.directions {
+    transform: rotate(-90deg);
+  }
+
+  body.joy.right div.letters {
+    transform: rotate(90deg);
+  }
+
+  body.joy.left div.directions button {
+    width: 16vh;
+    height: 16vh;
+    border-radius: 8vh;
+  }
+
 }

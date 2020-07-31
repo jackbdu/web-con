@@ -10,7 +10,7 @@ function display(str) {
     var escaped = str.replace(/&/, "&amp;").replace(/</, "&lt;").
         replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
     display.innerHTML = "$ "+escaped;
-    console.log("DEBUG: "+escaped);
+    console.log("DEBUG: "+str);
   }
 }
 
@@ -64,12 +64,6 @@ function init() {
     };
   }
 
-}
-
-function clickButton(elem) {
-  var button = elem.id;
-  display("Button <" + button + "> pushed");
-  ws.send('c,'+button);
 }
 
 dragElement(document.getElementById("l_stick"));
@@ -158,4 +152,31 @@ function dragElement(elem) {
     ws.send('s,'+elem.id.charAt(0)+',center,2048')
   }
 
+}
+
+// Get a reference to an element.
+var buttons = document.querySelectorAll('button');
+
+for (var i = 0; i < buttons.length; i++) {
+  // Create an instance of Hammer with the reference.
+  var hammer = new Hammer(buttons[i]);
+
+  hammer.on('tap', function(e) {
+    console.log(e);
+    var buttonId = e.target.id;
+    display("Button <" + buttonId + "> pushed");
+    ws.send('p,'+buttonId);
+  });
+
+  hammer.on('press', function(e) {
+    var buttonId = e.target.id;
+    display("Button <" + buttonId + "> down");
+    ws.send('d,'+buttonId);
+  });
+
+  hammer.on('pressup', function(e) {
+    var buttonId = e.target.id;
+    display("Button <" + buttonId + "> up");
+    ws.send('u,'+buttonId);
+  });
 }

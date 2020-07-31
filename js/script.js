@@ -66,6 +66,17 @@ function init() {
 
 }
 
+function sendCmd(cmd) {
+
+  try {
+    ws.send(cmd)
+    display('"'+cmd+'" sent');
+  } catch (error) {
+    display('"'+cmd+'" failed to send');
+  }
+
+}
+
 dragElement(document.getElementById("l_stick"));
 dragElement(document.getElementById("r_stick"));
 
@@ -134,8 +145,8 @@ function dragElement(elem) {
       hVal = Math.round(4095*(Math.sin(posX/constraint/2*Math.PI)+1)/2).toString();
       vVal = Math.round(4095*(Math.sin(-posY/constraint/2*Math.PI)+1)/2).toString();
     }
-    ws.send('s,'+elem.id.charAt(0)+',h,'+hVal)
-    ws.send('s,'+elem.id.charAt(0)+',v,'+vVal)
+    sendCmd('s,'+elem.id.charAt(0)+',h,'+hVal)
+    sendCmd('s,'+elem.id.charAt(0)+',v,'+vVal)
     console.log('Drag moved: s,'+elem.id.charAt(0)+',h,'+hVal);
   }
 
@@ -149,7 +160,7 @@ function dragElement(elem) {
     elem.style.top = "0px";
     elem.style.left = "0px";
     console.log('Drag ended: s,'+elem.id.charAt(0)+',center,2048');
-    ws.send('s,'+elem.id.charAt(0)+',center,2048')
+    sendCmd('s,'+elem.id.charAt(0)+',center,2048')
   }
 
 }
@@ -162,21 +173,145 @@ for (var i = 0; i < buttons.length; i++) {
   var hammer = new Hammer(buttons[i]);
 
   hammer.on('tap', function(e) {
-    console.log(e);
-    var buttonId = e.target.id;
-    display("Button <" + buttonId + "> pushed");
-    ws.send('p,'+buttonId);
+    var button = e.target.id;
+    sendCmd('p,'+button);
   });
 
   hammer.on('press', function(e) {
-    var buttonId = e.target.id;
-    display("Button <" + buttonId + "> down");
-    ws.send('d,'+buttonId);
+    var button = e.target.id;
+    sendCmd('d,'+button);
   });
 
   hammer.on('pressup', function(e) {
-    var buttonId = e.target.id;
-    display("Button <" + buttonId + "> up");
-    ws.send('u,'+buttonId);
+    var button = e.target.id;
+    sendCmd('u,'+button);
   });
+}
+
+var keysDown = [];
+
+document.addEventListener('keydown', function(e) {
+  let button = code2button(e.code);
+  if (button) {
+    if (!keysDown.includes(e.code)) {
+      keysDown.push(e.code);
+      sendCmd('d,'+button);
+    }
+  }
+});
+
+document.addEventListener('keyup', function(e) {
+  let button = code2button(e.code);
+  if (button) {
+    if (keysDown.includes(e.code)) {
+      var index = keysDown.indexOf(e.code);
+      if (index > -1) {
+        keysDown.splice(index, 1);
+      }
+      sendCmd('u,'+button);
+    }
+  }
+});
+
+function code2button(code) {
+  let button;
+  switch(code) {
+    case 'ArrowUp':
+      button = 'up';
+      break;
+    case 'KeyW':
+      button = 'up';
+      break;
+    case 'ArrowRight':
+      button = 'right';
+      break;
+    case 'KeyD':
+      button = 'right';
+      break;
+    case 'ArrowDown':
+      button = 'down';
+      break;
+    case 'KeyS':
+      button = 'down';
+      break;
+    case 'ArrowLeft':
+      button = 'left';
+      break;
+    case 'KeyA':
+      button = 'left';
+      break;
+    case 'KeyI':
+      button = 'x'
+      break;
+    case 'KeyL':
+      button = 'a'
+      break;
+    case 'Enter':
+      button = 'a'
+      break;
+    case 'Space':
+      button = 'a'
+      break;
+    case 'KeyK':
+      button = 'b'
+      break;
+    case 'Escape':
+      button = 'b'
+      break;
+    case 'KeyJ':
+      button = 'y'
+      break;
+    case 'Tab':
+      button = 'zl'
+      break;
+    case 'ShiftLeft':
+      button = 'zl'
+      break;
+    case 'KeyP':
+      button = 'zr'
+      break;
+    case 'ShiftLeft':
+      button = 'zr'
+      break;
+    case 'KeyQ':
+      button = 'l'
+      break;
+    case 'AltLeft':
+      button = 'l'
+      break;
+    case 'KeyO':
+      button = 'r'
+      break;
+    case 'AltRight':
+      button = 'r'
+      break;
+    case 'KeyE':
+      button = 'minus'
+      break;
+    case 'MetaLeft':
+      button = 'minus'
+      break;
+    case 'Minus':
+      button = 'minus'
+      break;
+    case 'KeyU':
+      button = 'plus'
+      break;
+    case 'MetaRight':
+      button = 'plus'
+      break;
+    case 'Equal':
+      button = 'plus'
+      break;
+    case 'KeyH':
+      button = 'home'
+      break;
+    case 'KeyC':
+      button = 'capture'
+      break;
+    case 'KeyF':
+      button = 'capture'
+      break;
+  }
+  return button;
 }

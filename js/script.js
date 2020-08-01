@@ -58,6 +58,9 @@ function init() {
         statusCode = 2;
         console.log('Setting lights to '+res[1]);
         setLights(res[1]);
+      } else if (res[0] === 'd') {
+        statusCode = 0;
+        setLights(0);
       }
     };
 
@@ -111,11 +114,13 @@ function playLightsAnimation(value=1, inc=true) {
 }
 
 function sendCmd(cmd) {
-  try {
-    ws.send(cmd)
-    display('"'+cmd+'" sent');
-  } catch (error) {
-    display('"'+cmd+'" failed to send');
+  if (statusCode != 1) {
+    try {
+      ws.send(cmd)
+      display('"'+cmd+'" sent');
+    } catch (error) {
+      display('"'+cmd+'" failed to send');
+    }
   }
 }
 
@@ -215,12 +220,12 @@ for (var i = 0; i < buttons.length; i++) {
   var hammer = new Hammer(buttons[i]);
 
   hammer.on('tap', function(e) {
+    var button = e.target.id;
+    sendCmd('p,'+button);
     if (statusCode === 0) {
       statusCode = 1;
       playLightsAnimation();
     }
-    var button = e.target.id;
-    sendCmd('p,'+button);
   });
 
   hammer.on('press', function(e) {
@@ -237,10 +242,6 @@ for (var i = 0; i < buttons.length; i++) {
 var keysDown = [];
 
 document.addEventListener('keypress', function(e) {
-  if (statusCode === 0) {
-    statusCode = 1;
-    playLightsAnimation();
-  }
   if (e.code === 'Slash') {
     document.body.classList.toggle('help');
   }
@@ -252,6 +253,10 @@ document.addEventListener('keydown', function(e) {
     if (!keysDown.includes(e.code)) {
       keysDown.push(e.code);
       sendCmd('d,'+button);
+    }
+    if (statusCode === 0) {
+      statusCode = 1;
+      playLightsAnimation();
     }
   }
 });

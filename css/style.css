@@ -127,6 +127,7 @@ ul.lights li {
   height: 2vh;
   margin: .5em;
   background: #aaa;
+  border-radius: .1em;
 }
 
 ul.lights li.on {

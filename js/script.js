@@ -190,6 +190,12 @@ for (var i = 0; i < buttons.length; i++) {
 
 var keysDown = [];
 
+document.addEventListener('keypress', function(e) {
+  if (e.code === 'Slash') {
+    document.body.classList.toggle('help');
+  }
+});
+
 document.addEventListener('keydown', function(e) {
   let button = code2button(e.code);
   if (button) {
@@ -197,9 +203,6 @@ document.addEventListener('keydown', function(e) {
       keysDown.push(e.code);
       sendCmd('d,'+button);
     }
-  }
-  if (e.code === 'Slash') {
-    document.body.classList.add('help');
   }
 });
 
@@ -213,9 +216,6 @@ document.addEventListener('keyup', function(e) {
       }
       sendCmd('u,'+button);
     }
-  }
-  if (e.code === 'Slash') {
-    document.body.classList.remove('help');
   }
 });
 

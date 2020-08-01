@@ -276,7 +276,7 @@ function code2button(code) {
     case 'Digit8':
       button = 'zr'
       break;
-    case 'ShiftLeft':
+    case 'ShiftRight':
       button = 'zr'
       break;
     case 'KeyE':

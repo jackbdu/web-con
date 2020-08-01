@@ -249,9 +249,6 @@ function code2button(code) {
     case 'KeyI':
       button = 'x'
       break;
-    case 'KeyY':
-      button = 'y'
-      break;
     case 'KeyL':
       button = 'a'
       break;
@@ -264,43 +261,37 @@ function code2button(code) {
     case 'KeyK':
       button = 'b'
       break;
-    case 'KeyB':
-      button = 'b'
-      break;
     case 'Escape':
       button = 'b'
       break;
     case 'KeyJ':
       button = 'y'
       break;
-    case 'KeyY':
-      button = 'y'
-      break;
-    case 'Digit1':
+    case 'Digit3':
       button = 'zl'
       break;
     case 'ShiftLeft':
       button = 'zl'
       break;
-    case 'Digit0':
+    case 'Digit8':
       button = 'zr'
       break;
     case 'ShiftLeft':
       button = 'zr'
       break;
-    case 'KeyQ':
+    case 'KeyE':
       button = 'l'
       break;
     case 'AltLeft':
       button = 'l'
       break;
-    case 'KeyO':
+    case 'KeyU':
       button = 'r'
       break;
     case 'AltRight':
       button = 'r'
       break;
-    case 'KeyE':
+    case 'KeyR':
       button = 'minus'
       break;
     case 'MetaLeft':
@@ -309,7 +300,7 @@ function code2button(code) {
     case 'Minus':
       button = 'minus'
       break;
-    case 'KeyU':
+    case 'KeyY':
       button = 'plus'
       break;
     case 'MetaRight':

@@ -25,13 +25,13 @@ button span {
   min-width: 1em;
   width: auto;
   white-space: nowrap;
-  font-size: .5em;
+  font-size: .4em;
   bottom: .3em;
   left: .3em;
   background: #eeec;
   border: 2px solid #cccc;
   border-radius: .3em;
-  padding: 3%;
+  padding: .2em;
   color: #333;
 }
 

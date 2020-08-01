@@ -276,13 +276,13 @@ function code2button(code) {
     case 'KeyY':
       button = 'y'
       break;
-    case 'Tab':
+    case 'Digit1':
       button = 'zl'
       break;
     case 'ShiftLeft':
       button = 'zl'
       break;
-    case 'KeyP':
+    case 'Digit0':
       button = 'zr'
       break;
     case 'ShiftLeft':

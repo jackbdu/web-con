@@ -198,6 +198,9 @@ document.addEventListener('keydown', function(e) {
       sendCmd('d,'+button);
     }
   }
+  if (e.code === 'Slash') {
+    document.body.classList.add('help');
+  }
 });
 
 document.addEventListener('keyup', function(e) {
@@ -210,6 +213,9 @@ document.addEventListener('keyup', function(e) {
       }
       sendCmd('u,'+button);
     }
+  }
+  if (e.code === 'Slash') {
+    document.body.classList.remove('help');
   }
 });
 
@@ -243,6 +249,9 @@ function code2button(code) {
     case 'KeyI':
       button = 'x'
       break;
+    case 'KeyY':
+      button = 'y'
+      break;
     case 'KeyL':
       button = 'a'
       break;
@@ -255,10 +264,16 @@ function code2button(code) {
     case 'KeyK':
       button = 'b'
       break;
+    case 'KeyB':
+      button = 'b'
+      break;
     case 'Escape':
       button = 'b'
       break;
     case 'KeyJ':
+      button = 'y'
+      break;
+    case 'KeyY':
       button = 'y'
       break;
     case 'Tab':

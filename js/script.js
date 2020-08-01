@@ -28,6 +28,7 @@ function findGetParameter(parameterName) {
 }
 
 var ws;
+var statusCode = 0; // 0 disconnected; 1 connecting; 2 connected; 3 closed
 
 function init() {
 
@@ -52,10 +53,18 @@ function init() {
     ws.onmessage = function(e) {
       // e.data contains received string.
       console.log("onmessage: " + e.data);
+      let res = e.data.split(',');
+      if (res[0] === 'l') {
+        statusCode = 2;
+        console.log('Setting lights to '+res[1]);
+        setLights(res[1]);
+      }
     };
 
     ws.onclose = function() {
       console.log("onclose");
+      statusCode = 3;
+      setLights(0);
     };
 
     ws.onerror = function(e) {
@@ -66,15 +75,48 @@ function init() {
 
 }
 
-function sendCmd(cmd) {
+function setLights(value) {
+  let lights = document.querySelectorAll('.lights li')
+  for (let i = 0; i < 4; i++) {
+    if (Math.floor(parseInt(value)/2**i)%2) {
+      lights[i].classList.add('on');
+    } else {
+      lights[i].classList.remove('on');
+    }
+  }
+}
 
+function playLightsAnimation(value=1, inc=true) {
+  if (statusCode === 1) {
+    setLights(value);
+    if (inc) {
+      if (value < 2**3) {
+        value = value * 2;
+      } else {
+        value = value / 2;
+        inc = false;
+      }
+    } else {
+      if (value > 1) {
+        value = value / 2;
+      } else {
+        value = value * 2;
+        inc = true;
+      }
+    }
+    setTimeout(function() {
+      playLightsAnimation(value, inc);
+    }, 150);
+  }
+}
+
+function sendCmd(cmd) {
   try {
     ws.send(cmd)
     display('"'+cmd+'" sent');
   } catch (error) {
     display('"'+cmd+'" failed to send');
   }
-
 }
 
 dragElement(document.getElementById("l_stick"));
@@ -173,6 +215,10 @@ for (var i = 0; i < buttons.length; i++) {
   var hammer = new Hammer(buttons[i]);
 
   hammer.on('tap', function(e) {
+    if (statusCode === 0) {
+      statusCode = 1;
+      playLightsAnimation();
+    }
     var button = e.target.id;
     sendCmd('p,'+button);
   });
@@ -191,6 +237,10 @@ for (var i = 0; i < buttons.length; i++) {
 var keysDown = [];
 
 document.addEventListener('keypress', function(e) {
+  if (statusCode === 0) {
+    statusCode = 1;
+    playLightsAnimation();
+  }
   if (e.code === 'Slash') {
     document.body.classList.toggle('help');
   }

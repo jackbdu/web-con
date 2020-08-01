@@ -35,7 +35,7 @@ button span {
   color: #333;
 }
 
-.help span {
+.help button span {
   visibility: visible;
 }
 
@@ -92,20 +92,46 @@ body.joy.right {
   background-color: #FF3C28;
 }
 
-body.pro button {
+body.pro button, ul.lights {
   background-color: #111;
 }
 
-body.joy.left button {
+body.joy.left button, ul.lights {
   background-color: #001E1E;
 }
 
-body.joy.right button {
+body.joy.right button, ul.lights {
   background-color: #1E0A0A;
 }
 
 div.directions button, div.letters button {
   color: #ccc;
+}
+
+/* lights */
+ul.lights {
+  position: fixed;
+  display: flex;
+  top: 1vh;
+  left: 50%;
+  list-style-type: none;
+  transform: translateX(-50%);
+  z-index: 100;
+  white-space: nowrap;
+  padding: .25em .5em;
+  border-radius: .5em;
+}
+
+ul.lights li {
+  width: 2vh;
+  height: 2vh;
+  margin: .5em;
+  background: #aaa;
+}
+
+ul.lights li.on {
+  background: #cafc03;
+  box-shadow: 0 0 .4em .2em #cafc03;
 }
 
 /* all buttons */

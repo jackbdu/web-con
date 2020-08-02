@@ -5,6 +5,7 @@ model = model ? model : "pro";
 var ws;
 var statusCode = 0; // 0 disconnected; 1 connecting; 2 connected; 3 closed
 var keysDown = [];
+var conLight = document.querySelector('.connection-light');
 
 function display(str) {
   if (debug === 'true') {
@@ -33,6 +34,8 @@ function findGetParameter(parameterName) {
 function init() {
 
   display("Welcome to Web-Con!");
+  conLight.classList.remove('on');
+  statusCode = 0;
 
   if (model === "left" || model === "right") {
     document.body.className = "joy " + model;
@@ -48,7 +51,7 @@ function init() {
     // Set event handlers.
     ws.onopen = function() {
       console.log("onopen");
-      document.querySelector('.connection-light').classList.add('on');
+      conLight.classList.add('on');
     };
 
     ws.onmessage = function(e) {
@@ -215,6 +218,13 @@ function dragElement(elem) {
   }
 
 }
+
+var mc = new Hammer.Manager(document.querySelector('.lights'));
+mc.add( new Hammer.Press({ event: 'longpress', time: 1500}));
+mc.on('longpress', function(e) {
+  console.log('longpressed');
+  init();
+});
 
 // Get a reference to an element.
 var buttons = document.querySelectorAll('button');

@@ -92,15 +92,15 @@ body.joy.right {
   background-color: #FF3C28;
 }
 
-body.pro button, ul.lights {
+body.pro button, body.pro ul.lights {
   background-color: #111;
 }
 
-body.joy.left button, ul.lights {
+body.joy.left button, body.joy.left ul.lights {
   background-color: #001E1E;
 }
 
-body.joy.right button, ul.lights {
+body.joy.right button, body.joy.right ul.lights {
   background-color: #1E0A0A;
 }
 

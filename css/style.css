@@ -35,7 +35,7 @@ button span {
   color: #333;
 }
 
-.help button span {
+.pro.help button span.pro, .left.help button span.left, .right.help button span.right {
   visibility: visible;
 }
 

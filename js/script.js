@@ -41,6 +41,7 @@ function init() {
     document.body.className = "joy " + model;
   } else {
     document.body.className = "pro";
+    model = "pro";
   }
 
   if (host) {
@@ -290,100 +291,197 @@ function code2button(code) {
   let button;
   switch(code) {
     case 'ArrowUp':
-      button = 'up';
+      if (model === 'pro') {
+        button = 'up';
+      }
       break;
     case 'KeyW':
-      button = 'up';
+      if (model === 'pro') {
+        button = 'up';
+      }
       break;
     case 'ArrowRight':
-      button = 'right';
+      if (model === 'pro') {
+        button = 'right';
+      }
       break;
     case 'KeyD':
-      button = 'right';
+      if (model === 'pro') {
+        button = 'right';
+      }
       break;
     case 'ArrowDown':
-      button = 'down';
+      if (model === 'pro') {
+        button = 'down';
+      }
       break;
     case 'KeyS':
-      button = 'down';
+      if (model === 'pro') {
+        button = 'down';
+      }
       break;
     case 'ArrowLeft':
-      button = 'left';
+      if (model === 'pro') {
+        button = 'left';
+      }
       break;
     case 'KeyA':
-      button = 'left';
+      if (model === 'pro') {
+        button = 'left';
+      }
       break;
     case 'KeyI':
-      button = 'x'
+      if (model === 'pro') {
+        button = 'x'
+      } else if (model === 'left') {
+        button = 'right';
+      } else if (model === 'right') {
+        button = 'y';
+      }
       break;
     case 'KeyL':
-      button = 'a'
+      if (model === 'pro') {
+        button = 'a'
+      } else if (model === 'left') {
+        button = 'down';
+      } else if (model === 'right') {
+        button = 'x';
+      }
       break;
     case 'Enter':
-      button = 'a'
+      if (model === 'pro') {
+        button = 'a'
+      } else if (model === 'left') {
+        button = 'down';
+      } else if (model === 'right') {
+        button = 'x';
+      }
       break;
     case 'Space':
-      button = 'a'
+      if (model === 'pro') {
+        button = 'a'
+      } else if (model === 'left') {
+        button = 'down';
+      } else if (model === 'right') {
+        button = 'x';
+      }
       break;
     case 'KeyK':
-      button = 'b'
+      if (model === 'pro') {
+        button = 'b'
+      } else if (model === 'left') {
+        button = 'left';
+      } else if (model === 'right') {
+        button = 'a';
+      }
       break;
     case 'Escape':
-      button = 'b'
+      if (model === 'pro') {
+        button = 'b'
+      } else if (model === 'left') {
+        button = 'left';
+      } else if (model === 'right') {
+        button = 'a';
+      }
       break;
     case 'KeyJ':
-      button = 'y'
+      if (model === 'pro') {
+        button = 'y'
+      } else if (model === 'left') {
+        button = 'up';
+      } else if (model === 'right') {
+        button = 'b';
+      }
       break;
     case 'Digit3':
-      button = 'zl'
+      if (model === 'pro' || model === 'left') {
+        button = 'zl'
+      }
       break;
     case 'ShiftLeft':
-      button = 'zl'
-      break;
-    case 'Digit8':
-      button = 'zr'
-      break;
-    case 'ShiftRight':
-      button = 'zr'
-      break;
-    case 'KeyE':
-      button = 'l'
-      break;
-    case 'AltLeft':
-      button = 'l'
-      break;
-    case 'KeyU':
-      button = 'r'
-      break;
-    case 'AltRight':
-      button = 'r'
-      break;
-    case 'KeyR':
-      button = 'minus'
-      break;
-    case 'MetaLeft':
-      button = 'minus'
-      break;
-    case 'Minus':
-      button = 'minus'
-      break;
-    case 'KeyY':
-      button = 'plus'
-      break;
-    case 'MetaRight':
-      button = 'plus'
-      break;
-    case 'Equal':
-      button = 'plus'
-      break;
-    case 'KeyH':
-      button = 'home'
+      if (model === 'pro' || model === 'left') {
+        button = 'zl'
+      }
       break;
     case 'KeyC':
-      button = 'capture'
+      if (model === 'left' || model === 'right') {
+        button = 'sl'
+      }
+      break;
+    case 'KeyN':
+      if (model === 'left' || model === 'right') {
+        button = 'sr'
+      }
+      break;
+    case 'Digit8':
+      if (model === 'pro' || model === 'right') {
+        button = 'zr'
+      }
+      break;
+    case 'ShiftRight':
+      if (model === 'pro' || model === 'right') {
+        button = 'zr'
+      }
+      break;
+    case 'KeyE':
+      if (model === 'pro' || model === 'left') {
+        button = 'l'
+      }
+      break;
+    case 'AltLeft':
+      if (model === 'pro' || model === 'left') {
+        button = 'l'
+      }
+      break;
+    case 'KeyU':
+      if (model === 'pro' || model === 'right') {
+        button = 'r'
+      }
+      break;
+    case 'AltRight':
+      if (model === 'pro' || model === 'right') {
+        button = 'r'
+      }
+      break;
+    case 'KeyR':
+      if (model === 'pro' || model === 'left') {
+        button = 'minus'
+      }
+      break;
+    case 'MetaLeft':
+      if (model === 'pro' || model === 'left') {
+        button = 'minus'
+      }
+      break;
+    case 'Minus':
+      if (model === 'pro' || model === 'left') {
+        button = 'minus'
+      }
+      break;
+    case 'KeyY':
+      if (model === 'pro' || model === 'right') {
+        button = 'plus'
+      }
+      break;
+    case 'MetaRight':
+      if (model === 'pro' || model === 'right') {
+        button = 'plus'
+      }
+      break;
+    case 'Equal':
+      if (model === 'pro' || model === 'right') {
+        button = 'plus'
+      }
+      break;
+    case 'KeyH':
+      if (model === 'pro' || model === 'right') {
+        button = 'home'
+      }
       break;
     case 'KeyF':
-      button = 'capture'
+      if (model === 'pro' || model === 'left') {
+        button = 'capture'
+      }
       break;
   }
   return button;

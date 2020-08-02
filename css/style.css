@@ -127,12 +127,26 @@ ul.lights li {
   height: 2vh;
   margin: .5em;
   background: #333;
+}
+
+ul.lights li.controller-light {
   border-radius: .1em;
 }
 
-ul.lights li.on {
+ul.lights li.controller-light.on {
   background: #cafc03;
   box-shadow: 0 0 .4em .2em #cafc03;
+}
+
+ul.lights li.connection-light {
+  border-radius: 1vh;
+  background: #f00;
+  box-shadow: 0 0 .4em .2em #f00;
+}
+
+ul.lights li.connection-light.on {
+  background: #0f0;
+  box-shadow: 0 0 .4em .2em #0f0;
 }
 
 /* all buttons */

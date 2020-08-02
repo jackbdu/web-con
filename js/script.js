@@ -48,6 +48,7 @@ function init() {
     // Set event handlers.
     ws.onopen = function() {
       console.log("onopen");
+      document.querySelector('.connection-light').classList.add('on');
     };
 
     ws.onmessage = function(e) {
@@ -68,6 +69,7 @@ function init() {
       console.log("onclose");
       statusCode = 3;
       setLights(0);
+      document.querySelector('.connection-light').classList.remove('on');
     };
 
     ws.onerror = function(e) {
@@ -79,7 +81,7 @@ function init() {
 }
 
 function setLights(value) {
-  let lights = document.querySelectorAll('.lights li')
+  let lights = document.querySelectorAll('.lights li.controller-light')
   for (let i = 0; i < 4; i++) {
     if (Math.floor(parseInt(value)/2**i)%2) {
       lights[i].classList.add('on');

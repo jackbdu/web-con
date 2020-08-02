@@ -1,7 +1,10 @@
 var host = findGetParameter("host");
 var debug = findGetParameter("debug");
-var type = findGetParameter("type");
-type = type ? type : "pro";
+var model = findGetParameter("model");
+model = model ? model : "pro";
+var ws;
+var statusCode = 0; // 0 disconnected; 1 connecting; 2 connected; 3 closed
+var keysDown = [];
 
 function display(str) {
   if (debug === 'true') {
@@ -27,15 +30,12 @@ function findGetParameter(parameterName) {
     return result;
 }
 
-var ws;
-var statusCode = 0; // 0 disconnected; 1 connecting; 2 connected; 3 closed
-
 function init() {
 
   display("Welcome to Web-Con!");
 
-  if (type === "left" || type === "right") {
-    document.body.className = "joy " + type;
+  if (model === "left" || model === "right") {
+    document.body.className = "joy " + model;
   } else {
     document.body.className = "pro";
   }
@@ -129,7 +129,6 @@ function sendCmd(cmd) {
 dragElement(document.getElementById("l_stick"));
 dragElement(document.getElementById("r_stick"));
 
-
 function dragElement(elem) {
   var initX = 0, initY = 0, posX = 0, posY = 0;
   var constraint = elem.clientWidth/2;
@@ -184,10 +183,10 @@ function dragElement(elem) {
     elem.style.left = posX + "px";
     var hVal = 0;
     var vVal = 0;
-    if (type === "left" && window.innerWidth / window.innerHeight >= 4/5) {
+    if (model === "left" && window.innerWidth / window.innerHeight >= 4/5) {
       vVal = Math.round(4095*(Math.sin(-posX/constraint/2*Math.PI)+1)/2).toString();
       hVal = Math.round(4095*(Math.sin(-posY/constraint/2*Math.PI)+1)/2).toString();
-    } else if (type === "right" && window.innerWidth / window.innerHeight >= 4/5) {
+    } else if (model === "right" && window.innerWidth / window.innerHeight >= 4/5) {
       vVal = Math.round(4095*(Math.sin(posX/constraint/2*Math.PI)+1)/2).toString();
       hVal = Math.round(4095*(Math.sin(posY/constraint/2*Math.PI)+1)/2).toString();
     } else {
@@ -240,8 +239,6 @@ for (var i = 0; i < buttons.length; i++) {
     sendCmd('u,'+button);
   });
 }
-
-var keysDown = [];
 
 document.addEventListener('keypress', function(e) {
   if (e.code === 'Slash') {

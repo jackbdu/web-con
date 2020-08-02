@@ -116,6 +116,9 @@ function playLightsAnimation(value=1, inc=true) {
 }
 
 function sendCmd(cmd) {
+  if (statusCode === 0) {
+    cmd = 'c,'+model;
+  }
   if (statusCode != 1) {
     try {
       ws.send(cmd)

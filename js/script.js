@@ -39,8 +39,10 @@ function init() {
 
   if (model === "left" || model === "right") {
     document.body.className = "joy " + model;
+    document.title = "Web-Con ("+model.charAt(0).toUpperCase()+")";
   } else {
     document.body.className = "pro";
+    document.title = "Web-Con Pro";
     model = "pro";
   }
 
